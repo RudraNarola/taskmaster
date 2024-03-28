@@ -17,12 +17,11 @@ import { useRouter } from "next/navigation";
 import { makeTabluarData } from "@/lib/utils";
 
 import { useData } from "@/store/useData";
-import { useAlgorithm } from "@/store/useAlgorithm";
 
 export function Form() {
   const router = useRouter();
   const { data, setData } = useData();
-  const { algorithm, setAlgorithm } = useAlgorithm();
+  const [algorithm, setAlgorithm] = useState("");
 
   const [file, setFile] = useState(null);
 
@@ -35,10 +34,9 @@ export function Form() {
     }
 
     const fileReader = new FileReader();
-    let content, dataArray;
+    let content: string | ArrayBuffer;
     fileReader.onload = (e) => {
       content = e.target?.result || "";
-      console.log(content);
 
       const data = makeTabluarData(content);
 
@@ -48,7 +46,7 @@ export function Form() {
     };
 
     fileReader.readAsText(file);
-    router.push("/main");
+    router.push(`/main?algorithm=${algorithm}`);
   };
 
   const handleFileChange = (event) => {

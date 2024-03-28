@@ -12,8 +12,6 @@ export function makeTabluarData(data: any) {
   let ArrivalTime = [],
     BurstTime = [];
 
-  console.log("lines", lines);
-
   lines.forEach((line) => {
     const [arrival, burst] = line.split(",");
     ArrivalTime.push(parseInt(arrival));
@@ -21,11 +19,3 @@ export function makeTabluarData(data: any) {
   });
   return { ArrivalTime, BurstTime };
 }
-
-// Arrival Time, Burst Time
-// 0,4
-// 1,5
-// 2,2
-// 3,1
-// 4,6
-// 6,3
