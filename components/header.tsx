@@ -4,10 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-const Header = () => {
-  const searchParams = useSearchParams();
-  const algorithm = searchParams.get("algorithm");
-
+const Header = ({ algorithm }: { algorithm: string }) => {
   let algorithmName: string = "";
   let mode: string = "";
   let criteria: string = "";
@@ -15,15 +12,15 @@ const Header = () => {
   if (algorithm === "fcfs") {
     algorithmName = "First Come First Serve";
     mode = "Non-Preemptive";
-    criteria = "Waiting Time";
+    criteria = "Arrival Time";
   } else if (algorithm === "sjf") {
     algorithmName = "Shortest Job First";
     mode = "Non-Preemptive";
-    criteria = "Waiting Time";
+    criteria = "Burst Time";
   } else if (algorithm === "srtf") {
     algorithmName = "Shortest Remaining Time First";
     mode = "Preemptive";
-    criteria = "Waiting Time";
+    criteria = "Burst Time";
   } else if (algorithm === "psa") {
     algorithmName = "Priority";
     mode = "Preemptive";
@@ -31,10 +28,8 @@ const Header = () => {
   } else if (algorithm === "rr") {
     algorithmName = "Round Robin";
     mode = "Preemptive";
-    criteria = "Waiting Time";
+    criteria = "Time Quantum + Arrival Time";
   }
-
-  console.log("hkkfh", algorithm, algorithmName, mode, criteria);
 
   return (
     <>

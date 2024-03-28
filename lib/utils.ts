@@ -13,6 +13,7 @@ export function makeTabluarData(data: any) {
     BurstTime = [];
 
   lines.forEach((line) => {
+    if (line == "") return;
     const [arrival, burst] = line.split(",");
     ArrivalTime.push(parseInt(arrival));
     BurstTime.push(parseInt(burst));
