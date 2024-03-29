@@ -39,5 +39,7 @@ export const FCFS = (data: any) => {
     TAT,
     WT,
     CT,
+    AT,
+    BT,
   };
 };

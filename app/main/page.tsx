@@ -14,7 +14,6 @@ const Page = () => {
       <Header algorithm={algorithm} />
       <Separator className=" mt-4 w-[90%] mx-auto" />
       <Main algorithm={algorithm} />
-      <Chart />
     </>
   );
 };
