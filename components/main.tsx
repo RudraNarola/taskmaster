@@ -8,6 +8,8 @@ import { Processes } from "./processes";
 import Chart from "./chart";
 import Link from "next/link";
 
+const TIME = 500;
+
 const Main = ({ algorithm }: { algorithm: string }) => {
   const { data } = useData();
 
@@ -42,8 +44,8 @@ const Main = ({ algorithm }: { algorithm: string }) => {
 
   return (
     <>
-      <Processes n={n} result={result} />
-      <Chart />
+      <Processes n={n} result={result} syncTime={TIME} />
+      <Chart ganntChart={result.ganntChart} syncTime={TIME} />
     </>
   );
 };

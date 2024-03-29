@@ -6,6 +6,8 @@ export const FCFS = (data: any) => {
   let TAT = [];
   let WT = [];
   let temp = [];
+  let ganntChart = [];
+  let process = [];
 
   for (let i = 0; i < AT.length; i++) {
     temp.push([i + 1, AT[i], BT[i]]);
@@ -21,6 +23,8 @@ export const FCFS = (data: any) => {
     let processId = temp[i][0];
     let tempTime = temp[i][2];
     let totalTime = temp[i][2];
+    process.push(processId);
+    ganntChart.push([processId, time]);
     while (tempTime > 0) {
       tempTime -= 1;
       tempProcess.push([processId, ((totalTime - tempTime) * 100) / totalTime]);
@@ -41,5 +45,7 @@ export const FCFS = (data: any) => {
     CT,
     AT,
     BT,
+    ganntChart,
+    order: process,
   };
 };

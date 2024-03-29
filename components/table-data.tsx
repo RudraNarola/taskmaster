@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -15,17 +16,28 @@ export const TableData = ({
   TAT,
   CT,
   WT,
+  order,
 }: {
   AT: [];
   BT: [];
   TAT: [];
   CT: [];
   WT: [];
+  order: [];
 }) => {
   const dummyArray = Array(AT.length).fill(null);
+  const [showTable, setShowTable] = useState(false);
+
+  useEffect(() => {
+    setShowTable(true);
+  }, []);
 
   return (
-    <div className="mx-auto w-2/3 mt-8 border border-white">
+    <div
+      className={`mx-auto w-2/3 mt-8 border border-white ${
+        showTable ? "opacity-100" : "opacity-0"
+      } transition-opacity duration-300`}
+    >
       <Table>
         {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
         <TableHeader>
@@ -53,7 +65,7 @@ export const TableData = ({
         <TableBody>
           {dummyArray.map((_, index) => (
             <TableRow key={index} className="text-white">
-              <TableCell className="text-center">{index + 1}</TableCell>
+              <TableCell className="text-center">P{order[index]}</TableCell>
               <TableCell className="text-center">{AT[index]}</TableCell>
               <TableCell className="text-center">{BT[index]}</TableCell>
               <TableCell className="text-center">{CT[index]}</TableCell>

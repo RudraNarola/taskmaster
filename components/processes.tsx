@@ -6,6 +6,7 @@ import { TableData } from "./table-data";
 export const Processes = ({
   n,
   result,
+  syncTime,
 }: {
   n: number;
   result: {
@@ -15,7 +16,10 @@ export const Processes = ({
     TAT: [];
     CT: [];
     BT: [];
+    ganntChart: [];
+    order: [];
   };
+  syncTime: number;
 }) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const dummyArray = Array(n).fill(null);
@@ -29,8 +33,6 @@ export const Processes = ({
       const processId = temp[0];
       const processValue = temp[1];
 
-      console.log(processId, processValue);
-
       setValues((prev) => {
         let newArr = [...prev];
         newArr[processId - 1] = processValue;
@@ -39,10 +41,12 @@ export const Processes = ({
 
       index += 1;
       if (index === result.process.length) {
-        setIsCompleted(true);
+        setTimeout(() => {
+          setIsCompleted(true);
+        }, 1000);
         clearInterval(interval);
       }
-    }, 50);
+    }, syncTime);
 
     return () => {
       clearInterval(interval);
@@ -50,7 +54,6 @@ export const Processes = ({
   }, []);
 
   if (isCompleted) {
-    console.log(result);
     return (
       <>
         <TableData
@@ -59,6 +62,7 @@ export const Processes = ({
           CT={result.CT}
           TAT={result.TAT}
           BT={result.BT}
+          order={result.order}
         />
       </>
     );

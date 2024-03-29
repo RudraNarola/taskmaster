@@ -12,7 +12,7 @@ const Page = () => {
   return (
     <>
       <Header algorithm={algorithm} />
-      <Separator className=" mt-4 w-[90%] mx-auto" />
+      <Separator className=" mt-6 w-[90%] mx-auto" />
       <Main algorithm={algorithm} />
     </>
   );
