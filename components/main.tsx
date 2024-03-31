@@ -11,10 +11,11 @@ import { SJF } from "@/lib/algorithm/SJF";
 import { PSANP } from "@/lib/algorithm/PSANP";
 import { PSAP } from "@/lib/algorithm/PSAP";
 import { SRTF } from "@/lib/algorithm/SRTF";
+import { RR } from "@/lib/algorithm/RR";
 
 const TIME = 30;
 
-const Main = ({ algorithm }: { algorithm: string }) => {
+const Main = ({ algorithm, tq }: { algorithm: string; tq?: number }) => {
   const { data } = useData();
 
   const n = data["ArrivalTime"].length;
@@ -45,7 +46,7 @@ const Main = ({ algorithm }: { algorithm: string }) => {
   } else if (algorithm === "srtf") {
     result = SRTF(data);
   } else if (algorithm === "rr") {
-    // do rr
+    result = RR(data, tq);
   }
 
   return (

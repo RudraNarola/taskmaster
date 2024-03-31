@@ -22,6 +22,7 @@ export function Form() {
   const router = useRouter();
   const { data, setData } = useData();
   const [algorithm, setAlgorithm] = useState("");
+  const [tq, setTq] = useState(0);
 
   const [file, setFile] = useState(null);
 
@@ -41,12 +42,14 @@ export function Form() {
       const data = makeTabluarData(content, algorithm);
 
       setData(data);
-
-      console.log("ohh she mine", data);
     };
 
     fileReader.readAsText(file);
-    router.push(`/main?algorithm=${algorithm}`);
+    if (algorithm == "rr") {
+      router.push(`/main?algorithm=${algorithm}&tq=${tq}`);
+    } else {
+      router.push(`/main?algorithm=${algorithm}`);
+    }
   };
 
   const handleFileChange = (event) => {
@@ -82,6 +85,17 @@ export function Form() {
             </SelectGroup>
           </SelectContent>
         </Select>
+        {algorithm == "rr" ? (
+          <Input
+            type="number"
+            className="text-white w-32 bg-black/15"
+            placeholder="Time Quantum"
+            onChange={(e) => {
+              setTq(+e.target.value);
+            }}
+            required
+          />
+        ) : null}
         <Input
           type="file"
           className="w-60 text-white bg-black/15"

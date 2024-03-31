@@ -9,11 +9,14 @@ import React from "react";
 const Page = () => {
   const searchParams = useSearchParams();
   const algorithm = searchParams.get("algorithm");
+  const tq = searchParams.get("tq");
+  console.log(algorithm);
+  console.log(tq);
   return (
     <>
       <Header algorithm={algorithm} />
       <Separator className=" mt-6 w-[90%] mx-auto" />
-      <Main algorithm={algorithm} />
+      <Main algorithm={algorithm} tq={+tq} />
     </>
   );
 };

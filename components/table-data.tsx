@@ -47,7 +47,7 @@ export const TableData = ({
             <TableHead className="text-gray-400 text-center">
               Process No.
             </TableHead>
-            {priority.length > 0 ? (
+            {priority && priority.length > 0 ? (
               <TableHead className="text-gray-400 text-center">
                 Priority
               </TableHead>
@@ -73,7 +73,7 @@ export const TableData = ({
           {dummyArray.map((_, index) => (
             <TableRow key={index} className="text-white">
               <TableCell className="text-center">P{order[index]}</TableCell>
-              {priority.length > 0 ? (
+              {priority && priority.length > 0 ? (
                 <TableCell className="text-center">{priority[index]}</TableCell>
               ) : null}
               <TableCell className="text-center">{AT[index]}</TableCell>

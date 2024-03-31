@@ -1,6 +1,7 @@
-let AT = [0, 1, 2, 3, 4, 5, 6];
-let BT = [4, 2, 3, 5, 1, 4, 6];
-let Priority = [2, 4, 6, 10, 8, 12, 9];
+let tq = 2;
+
+let AT = [0, 1, 2, 3, 4, 6];
+let BT = [4, 5, 2, 1, 6, 3];
 let tempProcess = [];
 let CT = [];
 let TAT = [];
@@ -10,7 +11,7 @@ let ganntChart = [];
 let order = [];
 
 for (let i = 0; i < AT.length; i++) {
-  temp.push([i + 1, AT[i], BT[i], Priority[i]]);
+  temp.push([i + 1, AT[i], BT[i]]);
 }
 
 temp.sort((a, b) => {
@@ -19,41 +20,53 @@ temp.sort((a, b) => {
 
 let time = temp[0][1];
 let index = 0;
-let queue = [];
+let readyQueue = [];
+readyQueue.push(temp[index]);
+index++;
 
-while (index < temp.length || queue.length > 0) {
-  while (index < temp.length && temp[index][1] <= time) {
-    queue.push(temp[index]);
-    index++;
+while (readyQueue.length > 0) {
+  let currProcess = readyQueue.shift();
+  let processId = currProcess[0];
+  let timeTaken = currProcess[2];
+
+  if (timeTaken <= tq) {
+    // order.push(processId);
+    time += timeTaken;
+    timeTaken = 0;
+    CT.push([processId, time]);
+  } else {
+    timeTaken -= tq;
+    time += tq;
+    while (index < temp.length && temp[index][1] <= time) {
+      readyQueue.push(temp[index]);
+      index++;
+    }
+    readyQueue.push([processId, currProcess[1], timeTaken]);
   }
-  // sort the queue based on priority
-  queue.sort((a, b) => {
-    return b[3] - a[3];
-  });
 
-  console.log(queue);
+  let totalTime = BT[processId - 1];
+  tempProcess.push([processId, ((totalTime - timeTaken) * 100) / totalTime]);
 
-  let processId = queue[0][0];
-  let timeTaken = queue[0][2];
-
-  queue.shift();
-
-  time += timeTaken;
-
-  order.push(processId);
   ganntChart.push([processId, time]);
-
-  let tempTime = timeTaken;
-  let totalTime = timeTaken;
-  while (tempTime > 0) {
-    tempTime -= 1;
-    tempProcess.push([processId, ((totalTime - tempTime) * 100) / totalTime]);
-  }
-
-  CT.push(time);
 }
 
+console.log(CT);
+
+CT.sort((a, b) => {
+  return a[0] - b[0];
+});
+
+let newCT = [];
+let newOrder = [];
+
 for (let i = 0; i < temp.length; i++) {
-  TAT.push(CT[i] - temp[i][1]);
+  order.push(CT[0]);
+  newCT.push(CT[1]);
+}
+
+console.log(newCT, order);
+
+for (let i = 0; i < temp.length; i++) {
+  TAT.push(newCT[i] - temp[i][1]);
   WT.push(TAT[i] - temp[i][2]);
 }
