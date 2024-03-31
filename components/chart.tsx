@@ -16,8 +16,6 @@ const Chart = ({
   const [parent, animate] = useAutoAnimate({ duration: 500 });
   const [parent1, animate1] = useAutoAnimate({ duration: 500 });
 
-  console.log("Ready queue", RQ);
-
   useEffect(() => {
     let index = 0;
     let time = 0;
@@ -32,12 +30,13 @@ const Chart = ({
         return newArr;
       });
 
-      setReadyQueue((prev) => {
-        let newArr = [...prev];
-        newArr = RQ[index];
-        return newArr;
-      });
-
+      if (RQ) {
+        setReadyQueue((prev) => {
+          let newArr = [...prev];
+          newArr = RQ[index];
+          return newArr;
+        });
+      }
       index += 1;
 
       if (index === ganntChart.length) {
@@ -53,7 +52,7 @@ const Chart = ({
   return (
     <>
       <div className=" flex flex-col gap-6 mx-16 bg-black/30 text-white mt-6 rounded-lg  p-6 ">
-        {readyQueue.length > 0 ? (
+        {readyQueue && readyQueue.length > 0 ? (
           <>
             <div className="flex gap-4 w-full">
               <h3 className="text-gray-200 font-custom text-xl w-auto">

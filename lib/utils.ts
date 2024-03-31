@@ -5,7 +5,20 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function makeTabluarData(data: any, aglorithm: string) {
+export function makeTabluarData(data: any, aglorithm: string, mode: string) {
+  if (mode === "manual") {
+    let ArrivalTime = [],
+      BurstTime = [],
+      Priority = [];
+    data.forEach((item) => {
+      ArrivalTime.push(item[0]);
+      BurstTime.push(item[1]);
+      Priority.push(item[2]);
+    });
+
+    return { ArrivalTime, BurstTime, Priority };
+  }
+
   let lines = data.split("\n");
   lines = lines.map((line) => line.trim());
   lines = lines.filter((line, index) => index !== 0);

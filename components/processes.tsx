@@ -60,21 +60,21 @@ export const Processes = ({
     };
   }, []);
 
-  // if (isCompleted) {
-  //   return (
-  //     <>
-  //       <TableData
-  //         WT={result.WT}
-  //         AT={result.AT}
-  //         CT={result.CT}
-  //         TAT={result.TAT}
-  //         BT={result.BT}
-  //         order={result.order}
-  //         priority={result.priority}
-  //       />
-  //     </>
-  //   );
-  // }
+  if (isCompleted) {
+    return (
+      <>
+        <TableData
+          WT={result.WT}
+          AT={result.AT}
+          CT={result.CT}
+          TAT={result.TAT}
+          BT={result.BT}
+          order={result.order}
+          priority={result.priority}
+        />
+      </>
+    );
+  }
 
   return (
     <div
