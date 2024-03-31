@@ -9,6 +9,7 @@ import Chart from "./chart";
 import Link from "next/link";
 import { SJF } from "@/lib/algorithm/SJF";
 import { PSANP } from "@/lib/algorithm/PSANP";
+import { PSAP } from "@/lib/algorithm/PSAP";
 
 const TIME = 30;
 
@@ -38,9 +39,8 @@ const Main = ({ algorithm }: { algorithm: string }) => {
     result = SJF(data);
   } else if (algorithm === "psanp") {
     result = PSANP(data);
-    console.log("result", result);
   } else if (algorithm === "psap") {
-    // do psa
+    result = PSAP(data);
   } else if (algorithm === "srtf") {
     // do srtf
   } else if (algorithm === "rr") {
