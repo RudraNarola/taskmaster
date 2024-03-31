@@ -10,6 +10,7 @@ import Link from "next/link";
 import { SJF } from "@/lib/algorithm/SJF";
 import { PSANP } from "@/lib/algorithm/PSANP";
 import { PSAP } from "@/lib/algorithm/PSAP";
+import { SRTF } from "@/lib/algorithm/SRTF";
 
 const TIME = 30;
 
@@ -42,7 +43,7 @@ const Main = ({ algorithm }: { algorithm: string }) => {
   } else if (algorithm === "psap") {
     result = PSAP(data);
   } else if (algorithm === "srtf") {
-    // do srtf
+    result = SRTF(data);
   } else if (algorithm === "rr") {
     // do rr
   }

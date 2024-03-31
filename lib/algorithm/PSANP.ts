@@ -66,5 +66,6 @@ export const PSANP = (data: any) => {
     BT,
     ganntChart,
     order,
+    priority: Priority,
   };
 };

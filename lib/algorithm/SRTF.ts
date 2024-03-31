@@ -1,5 +1,4 @@
-// Shortest Job First Algorithm
-export const SJF = (data: any) => {
+export const SRTF = (data: any) => {
   let AT = data["ArrivalTime"];
   let BT = data["BurstTime"];
   let tempProcess = [];
@@ -20,8 +19,8 @@ export const SJF = (data: any) => {
 
   let time = temp[0][1];
   let index = 0;
-
   let queue = [];
+
   while (index < temp.length || queue.length > 0) {
     while (index < temp.length && temp[index][1] <= time) {
       queue.push(temp[index]);
@@ -36,21 +35,22 @@ export const SJF = (data: any) => {
     let processId = queue[0][0];
     let timeTaken = queue[0][2];
 
-    queue.shift();
+    time += 1;
+    timeTaken -= 1;
 
-    time += timeTaken;
-
-    order.push(processId);
-    ganntChart.push([processId, time]);
-
-    let tempTime = timeTaken;
-    let totalTime = timeTaken;
-    while (tempTime > 0) {
-      tempTime -= 1;
-      tempProcess.push([processId, ((totalTime - tempTime) * 100) / totalTime]);
+    if (timeTaken == 0) {
+      order.push(processId);
+      queue.shift();
+      CT.push(time);
+    } else {
+      queue[0][2] = timeTaken;
     }
 
-    CT.push(time);
+    let totalTime = BT[processId - 1];
+
+    tempProcess.push([processId, ((totalTime - timeTaken) * 100) / totalTime]);
+
+    ganntChart.push([processId, time]);
   }
 
   for (let i = 0; i < temp.length; i++) {

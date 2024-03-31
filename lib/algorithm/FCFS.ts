@@ -17,7 +17,7 @@ export const FCFS = (data: any) => {
     return a[1] - b[1];
   });
 
-  let time = 0;
+  let time = temp[0][1];
   for (let i = 0; i < temp.length; i++) {
     time += temp[i][2];
     let processId = temp[i][0];

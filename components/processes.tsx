@@ -18,6 +18,7 @@ export const Processes = ({
     BT: [];
     ganntChart: [];
     order: [];
+    priority?: [];
   };
   syncTime: number;
 }) => {
@@ -63,6 +64,7 @@ export const Processes = ({
           TAT={result.TAT}
           BT={result.BT}
           order={result.order}
+          priority={result.priority}
         />
       </>
     );
