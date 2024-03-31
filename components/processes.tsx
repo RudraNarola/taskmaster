@@ -21,6 +21,8 @@ export const Processes = ({
   };
   syncTime: number;
 }) => {
+  console.log("result", result);
+
   const [isCompleted, setIsCompleted] = useState(false);
   const dummyArray = Array(n).fill(null);
   const arr = Array(n).fill(0);

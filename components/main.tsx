@@ -7,8 +7,9 @@ import { FCFS } from "@/lib/algorithm/FCFS";
 import { Processes } from "./processes";
 import Chart from "./chart";
 import Link from "next/link";
+import { SJF } from "@/lib/algorithm/SJF";
 
-const TIME = 500;
+const TIME = 30;
 
 const Main = ({ algorithm }: { algorithm: string }) => {
   const { data } = useData();
@@ -33,7 +34,8 @@ const Main = ({ algorithm }: { algorithm: string }) => {
   if (algorithm === "fcfs") {
     result = FCFS(data);
   } else if (algorithm === "sjf") {
-    // do sjf
+    result = SJF(data);
+    console.log("ct", result);
   } else if (algorithm === "rr") {
     // do rr
   } else if (algorithm === "psa") {

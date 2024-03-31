@@ -1,4 +1,7 @@
-export const FCFS = (data: any) => {
+import { SortAsc } from "lucide-react";
+
+// Shortest Job First Algorithm
+export const SJF = (data: any) => {
   let AT = data["ArrivalTime"];
   let BT = data["BurstTime"];
   let tempProcess = [];
@@ -17,14 +20,33 @@ export const FCFS = (data: any) => {
     return a[1] - b[1];
   });
 
-  let time = 0;
-  for (let i = 0; i < temp.length; i++) {
-    time += temp[i][2];
-    let processId = temp[i][0];
-    let tempTime = temp[i][2];
-    let totalTime = temp[i][2];
+  let time = temp[0][1];
+  let index = 0;
+
+  let queue = [];
+  while (index < temp.length || queue.length > 0) {
+    while (index < temp.length && temp[index][1] <= time) {
+      queue.push(temp[index]);
+      index++;
+    }
+
+    // sort the queue based on burst time
+    queue.sort((a, b) => {
+      return a[2] - b[2];
+    });
+
+    let processId = queue[0][0];
+    let timeTaken = queue[0][2];
+
+    queue.shift();
+
+    time += timeTaken;
+
     order.push(processId);
     ganntChart.push([processId, time]);
+
+    let tempTime = timeTaken;
+    let totalTime = timeTaken;
     while (tempTime > 0) {
       tempTime -= 1;
       tempProcess.push([processId, ((totalTime - tempTime) * 100) / totalTime]);

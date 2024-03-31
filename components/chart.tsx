@@ -15,8 +15,6 @@ const Chart = ({
     let index = 0;
     let time = 0;
 
-    console.log(ganntChart);
-
     const interval = setInterval(() => {
       time++;
       const processId = ganntChart[index][0];
