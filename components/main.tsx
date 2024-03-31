@@ -13,7 +13,7 @@ import { PSAP } from "@/lib/algorithm/PSAP";
 import { SRTF } from "@/lib/algorithm/SRTF";
 import { RR } from "@/lib/algorithm/RR";
 
-const TIME = 30;
+const TIME = 1000;
 
 const Main = ({ algorithm, tq }: { algorithm: string; tq?: number }) => {
   const { data } = useData();
@@ -52,7 +52,7 @@ const Main = ({ algorithm, tq }: { algorithm: string; tq?: number }) => {
   return (
     <>
       <Processes n={n} result={result} syncTime={TIME} />
-      <Chart ganntChart={result.ganntChart} syncTime={TIME} />
+      <Chart ganntChart={result.ganntChart} syncTime={TIME} RQ={result.RQ} />
     </>
   );
 };

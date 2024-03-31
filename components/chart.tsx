@@ -4,30 +4,40 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 const Chart = ({
   ganntChart,
   syncTime,
+  RQ,
 }: {
   ganntChart: [];
   syncTime: number;
+  RQ?: [];
 }) => {
   const [queue, setQueue] = useState([]);
+  const [readyQueue, setReadyQueue] = useState([]);
   const [parent, animate] = useAutoAnimate({ duration: 500 });
+  const [parent1, animate1] = useAutoAnimate({ duration: 500 });
+
+  console.log("Ready queue", RQ);
 
   useEffect(() => {
     let index = 0;
     let time = 0;
 
     const interval = setInterval(() => {
-      time++;
       const processId = ganntChart[index][0];
       const timeTaken = ganntChart[index][1];
 
-      if (time === timeTaken) {
-        setQueue((prev) => {
-          let newArr = [...prev];
-          newArr.push(processId);
-          return newArr;
-        });
-        index += 1;
-      }
+      setQueue((prev) => {
+        let newArr = [...prev];
+        newArr.push(processId);
+        return newArr;
+      });
+
+      setReadyQueue((prev) => {
+        let newArr = [...prev];
+        newArr = RQ[index];
+        return newArr;
+      });
+
+      index += 1;
 
       if (index === ganntChart.length) {
         clearInterval(interval);
@@ -41,7 +51,20 @@ const Chart = ({
 
   return (
     <>
-      <div className="mx-16 bg-black/30 text-white mt-6 rounded-lg  p-6 ">
+      <div className=" flex flex-col gap-6 mx-16 bg-black/30 text-white mt-6 rounded-lg  p-6 ">
+        {readyQueue.length > 0 ? (
+          <div className="flex gap-4 w-full">
+            <h3 className="text-gray-200 font-custom text-xl w-auto">
+              Ready Queue:{" "}
+            </h3>
+            <div className="flex flex-wrap w-full gap-y-3" ref={parent1}>
+              {readyQueue.map((item) => (
+                <span className="flex justify-center items-center border text-2xl border-gray-300 text-gray-300 px-2 py-1">{`P${item}`}</span>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
         <div className="flex gap-4 w-full">
           <h3 className="text-gray-200 font-custom text-xl w-auto">
             Gannt Chart:{" "}

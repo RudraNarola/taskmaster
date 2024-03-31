@@ -8,6 +8,8 @@ export const RR = (data: any, tq: number) => {
   let temp = [];
   let ganntChart = [];
   let order = [];
+  let RQ = [];
+  let tempRQ = [];
 
   for (let i = 0; i < AT.length; i++) {
     temp.push([i + 1, AT[i], BT[i]]);
@@ -23,16 +25,24 @@ export const RR = (data: any, tq: number) => {
   readyQueue.push(temp[index]);
   index++;
 
+  tempRQ.push(temp[0][0]);
+  RQ.push(tempRQ);
+
   while (readyQueue.length > 0) {
+    tempRQ = [];
     let currProcess = readyQueue.shift();
     let processId = currProcess[0];
     let timeTaken = currProcess[2];
 
     if (timeTaken <= tq) {
-      // order.push(processId);
       time += timeTaken;
       timeTaken = 0;
       CT.push([processId, time]);
+
+      while (index < temp.length && temp[index][1] <= time) {
+        readyQueue.push(temp[index]);
+        index++;
+      }
     } else {
       timeTaken -= tq;
       time += tq;
@@ -47,6 +57,12 @@ export const RR = (data: any, tq: number) => {
     tempProcess.push([processId, ((totalTime - timeTaken) * 100) / totalTime]);
 
     ganntChart.push([processId, time]);
+
+    for (let i = 0; i < readyQueue.length; i++) {
+      tempRQ.push(readyQueue[i][0]);
+    }
+
+    RQ.push(tempRQ);
   }
 
   CT.sort((a, b) => {
@@ -74,5 +90,6 @@ export const RR = (data: any, tq: number) => {
     BT,
     ganntChart,
     order,
+    RQ,
   };
 };
