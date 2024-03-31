@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ProcessItem } from "./process-item";
 import { cn } from "@/lib/utils";
 import { TableData } from "./table-data";
+import { parse } from "path";
 
 export const Processes = ({
   n,
@@ -27,6 +28,11 @@ export const Processes = ({
   const arr = Array(n).fill(0);
   const [values, setValues] = useState(arr);
 
+  const noOfCols = parseInt(
+    Math.min(6, Math.max(2, Math.ceil(n / 6))).toString()
+  );
+  console.log(noOfCols);
+
   useEffect(() => {
     let index = 0;
     const interval = setInterval(() => {
@@ -44,7 +50,7 @@ export const Processes = ({
       if (index === result.process.length) {
         setTimeout(() => {
           setIsCompleted(true);
-        }, 1000);
+        }, 500);
         clearInterval(interval);
       }
     }, syncTime);
@@ -54,27 +60,29 @@ export const Processes = ({
     };
   }, []);
 
-  if (isCompleted) {
-    return (
-      <>
-        <TableData
-          WT={result.WT}
-          AT={result.AT}
-          CT={result.CT}
-          TAT={result.TAT}
-          BT={result.BT}
-          order={result.order}
-          priority={result.priority}
-        />
-      </>
-    );
-  }
+  // if (isCompleted) {
+  //   return (
+  //     <>
+  //       <TableData
+  //         WT={result.WT}
+  //         AT={result.AT}
+  //         CT={result.CT}
+  //         TAT={result.TAT}
+  //         BT={result.BT}
+  //         order={result.order}
+  //         priority={result.priority}
+  //       />
+  //     </>
+  //   );
+  // }
 
   return (
     <div
       className={cn(
-        "grid grid-cols-4 gap-x-8 bg-black/30 mt-6 mx-16 rounded-lg h-[80%] px-8 py-3 font-custom",
-        `grid-rows-${Math.ceil(n / 4)}`
+        "grid gap-x-8 gap-y-8  bg-black/30 mt-6 mx-16 rounded-lg px-8 py-6 font-custom",
+        `grid-rows-${Math.ceil(n / 4)}`,
+        // "grid-cols-7"
+        `grid-cols-${noOfCols}`
       )}
     >
       {dummyArray.map((_, index) => (
