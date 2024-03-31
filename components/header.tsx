@@ -22,7 +22,11 @@ const Header = ({ algorithm }: { algorithm: string }) => {
     algorithmName = "Shortest Remaining Time First";
     mode = "Preemptive";
     criteria = "Burst Time";
-  } else if (algorithm === "psa") {
+  } else if (algorithm == "psanp") {
+    algorithmName = "Priority";
+    mode = "Non-Preemptive";
+    criteria = "Priority";
+  } else if (algorithm === "psap") {
     algorithmName = "Priority";
     mode = "Preemptive";
     criteria = "Priority";

@@ -39,9 +39,8 @@ export const SRTF = (data: any) => {
     timeTaken -= 1;
 
     if (timeTaken == 0) {
-      order.push(processId);
       queue.shift();
-      CT.push(time);
+      CT.push([processId, time]);
     } else {
       queue[0][2] = timeTaken;
     }
@@ -53,16 +52,27 @@ export const SRTF = (data: any) => {
     ganntChart.push([processId, time]);
   }
 
+  CT.sort((a, b) => {
+    return a[0] - b[0];
+  });
+
+  let newCT = [];
+
   for (let i = 0; i < temp.length; i++) {
-    TAT.push(CT[i] - temp[i][1]);
-    WT.push(TAT[i] - temp[i][2]);
+    order.push(CT[i][0]);
+    newCT.push(CT[i][1]);
+  }
+
+  for (let i = 0; i < temp.length; i++) {
+    TAT.push(newCT[i] - temp[i][1]);
+    WT.push(TAT[i] - BT[i]);
   }
 
   return {
     process: tempProcess,
     TAT,
     WT,
-    CT,
+    CT: newCT,
     AT,
     BT,
     ganntChart,

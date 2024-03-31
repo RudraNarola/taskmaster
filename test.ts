@@ -60,8 +60,8 @@ let newCT = [];
 let newOrder = [];
 
 for (let i = 0; i < temp.length; i++) {
-  order.push(CT[0]);
-  newCT.push(CT[1]);
+  order.push(CT[i][0]);
+  newCT.push(CT[i][1]);
 }
 
 console.log(newCT, order);

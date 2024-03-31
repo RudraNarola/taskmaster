@@ -23,18 +23,29 @@ export const FCFS = (data: any) => {
     let processId = temp[i][0];
     let tempTime = temp[i][2];
     let totalTime = temp[i][2];
-    order.push(processId);
+
     ganntChart.push([processId, time]);
     while (tempTime > 0) {
       tempTime -= 1;
       tempProcess.push([processId, ((totalTime - tempTime) * 100) / totalTime]);
     }
 
-    CT.push(time);
+    CT.push([processId, time]);
+  }
+
+  CT.sort((a, b) => {
+    return a[0] - b[0];
+  });
+
+  let newCT = [];
+
+  for (let i = 0; i < temp.length; i++) {
+    order.push(CT[i][0]);
+    newCT.push(CT[i][1]);
   }
 
   for (let i = 0; i < temp.length; i++) {
-    TAT.push(CT[i] - temp[i][1]);
+    TAT.push(newCT[i] - temp[i][1]);
     WT.push(TAT[i] - temp[i][2]);
   }
 
@@ -42,7 +53,7 @@ export const FCFS = (data: any) => {
     process: tempProcess,
     TAT,
     WT,
-    CT,
+    CT: newCT,
     AT,
     BT,
     ganntChart,

@@ -40,7 +40,6 @@ export const PSANP = (data: any) => {
 
     time += timeTaken;
 
-    order.push(processId);
     ganntChart.push([processId, time]);
 
     let tempTime = timeTaken;
@@ -50,18 +49,30 @@ export const PSANP = (data: any) => {
       tempProcess.push([processId, ((totalTime - tempTime) * 100) / totalTime]);
     }
 
-    CT.push(time);
+    CT.push([processId, time]);
+  }
+
+  CT.sort((a, b) => {
+    return a[0] - b[0];
+  });
+
+  let newCT = [];
+
+  for (let i = 0; i < temp.length; i++) {
+    order.push(CT[i][0]);
+    newCT.push(CT[i][1]);
   }
 
   for (let i = 0; i < temp.length; i++) {
-    TAT.push(CT[i] - temp[i][1]);
-    WT.push(TAT[i] - temp[i][2]);
+    TAT.push(newCT[i] - temp[i][1]);
+    WT.push(TAT[i] - BT[i]);
   }
+
   return {
     process: tempProcess,
     TAT,
     WT,
-    CT,
+    CT: newCT,
     AT,
     BT,
     ganntChart,

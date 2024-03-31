@@ -54,7 +54,6 @@ export const RR = (data: any, tq: number) => {
   });
 
   let newCT = [];
-  let newOrder = [];
 
   for (let i = 0; i < temp.length; i++) {
     order.push(CT[i][0]);
@@ -63,7 +62,7 @@ export const RR = (data: any, tq: number) => {
 
   for (let i = 0; i < temp.length; i++) {
     TAT.push(newCT[i] - temp[i][1]);
-    WT.push(TAT[i] - temp[i][2]);
+    WT.push(TAT[i] - BT[i]);
   }
 
   return {
