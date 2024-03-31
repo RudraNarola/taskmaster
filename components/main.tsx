@@ -8,6 +8,7 @@ import { Processes } from "./processes";
 import Chart from "./chart";
 import Link from "next/link";
 import { SJF } from "@/lib/algorithm/SJF";
+import { PSANP } from "@/lib/algorithm/PSANP";
 
 const TIME = 30;
 
@@ -35,13 +36,15 @@ const Main = ({ algorithm }: { algorithm: string }) => {
     result = FCFS(data);
   } else if (algorithm === "sjf") {
     result = SJF(data);
-    console.log("ct", result);
-  } else if (algorithm === "rr") {
-    // do rr
-  } else if (algorithm === "psa") {
+  } else if (algorithm === "psanp") {
+    result = PSANP(data);
+    console.log("result", result);
+  } else if (algorithm === "psap") {
     // do psa
   } else if (algorithm === "srtf") {
     // do srtf
+  } else if (algorithm === "rr") {
+    // do rr
   }
 
   return (

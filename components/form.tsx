@@ -38,7 +38,7 @@ export function Form() {
     fileReader.onload = (e) => {
       content = e.target?.result || "";
 
-      const data = makeTabluarData(content);
+      const data = makeTabluarData(content, algorithm);
 
       setData(data);
 
@@ -73,10 +73,12 @@ export function Form() {
                 Shortest Remaining Time First - P
               </SelectItem>
               <SelectItem value="rr">Round Robin </SelectItem>
-              <SelectItem value="psa">Priority Schedule Algorithm</SelectItem>
-              {/* <SelectItem value="srtfio">
-                Shortest Remaining Time First with I/O
-              </SelectItem> */}
+              <SelectItem value="psanp">
+                Priority Schedule Algorithm - NP
+              </SelectItem>
+              <SelectItem value="psap">
+                Priority Schedule Algorithm - P
+              </SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
