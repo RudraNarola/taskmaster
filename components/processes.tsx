@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { ProcessItem } from "./process-item";
 import { cn } from "@/lib/utils";
 import { TableData } from "./table-data";
-import { parse } from "path";
 
 export const Processes = ({
   n,
@@ -31,7 +30,9 @@ export const Processes = ({
   const noOfCols = parseInt(
     Math.min(6, Math.max(2, Math.ceil(n / 6))).toString()
   );
-  console.log(noOfCols);
+  const noOfRows = parseInt(Math.ceil(n / 4).toString());
+
+  console.log("process", result.process);
 
   useEffect(() => {
     let index = 0;
@@ -79,11 +80,15 @@ export const Processes = ({
   return (
     <div
       className={cn(
-        "grid gap-x-8 gap-y-8  bg-black/30 mt-6 mx-16 rounded-lg px-8 py-6 font-custom",
-        `grid-rows-${Math.ceil(n / 4)}`,
+        "grid gap-x-8 gap-y-8  bg-black/30 mt-6 mx-16 rounded-lg px-8 py-6 font-custom"
+        // `grid-rows-${Math.ceil(n / 4)}`,
         // "grid-cols-7"
-        `grid-cols-${noOfCols}`
+        // `grid-cols-${noOfCols}`
       )}
+      style={{
+        gridTemplateColumns: `repeat(${noOfCols}, 1fr)`,
+        gridTemplateRows: `repeat(${noOfRows}, 1fr)`,
+      }}
     >
       {dummyArray.map((_, index) => (
         <ProcessItem key={index} value={values[index]} no={index} />

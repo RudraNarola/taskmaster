@@ -12,8 +12,9 @@ import { PSANP } from "@/lib/algorithm/PSANP";
 import { PSAP } from "@/lib/algorithm/PSAP";
 import { SRTF } from "@/lib/algorithm/SRTF";
 import { RR } from "@/lib/algorithm/RR";
+import { HRRN } from "@/lib/algorithm/HRRN";
 
-const TIME = 1000;
+const TIME = 500;
 
 const Main = ({ algorithm, tq }: { algorithm: string; tq?: number }) => {
   const { data } = useData();
@@ -47,12 +48,23 @@ const Main = ({ algorithm, tq }: { algorithm: string; tq?: number }) => {
     result = SRTF(data);
   } else if (algorithm === "rr") {
     result = RR(data, tq);
+  } else if (algorithm === "hrrn") {
+    result = HRRN(data);
   }
+  console.log("gantt", result.ganntChart);
+  let minAT = Math.min(...data["ArrivalTime"]);
+  console.log("Minimum time", minAT);
 
   return (
     <>
       <Processes n={n} result={result} syncTime={TIME} />
-      <Chart ganntChart={result.ganntChart} syncTime={TIME} RQ={result.RQ} />
+      <Chart
+        ganntChart={result.ganntChart}
+        syncTime={TIME}
+        RQ={result.RQ}
+        algorithm={algorithm}
+        minAT={minAT}
+      />
     </>
   );
 };

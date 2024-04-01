@@ -99,6 +99,7 @@ export function Form() {
               <SelectItem value="psap">
                 Priority Schedule Algorithm - P
               </SelectItem>
+              <SelectItem value="hrrn">Highest Response Ratio Next</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>

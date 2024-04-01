@@ -34,6 +34,10 @@ const Header = ({ algorithm }: { algorithm: string }) => {
     algorithmName = "Round Robin";
     mode = "Preemptive";
     criteria = "Time Quantum + Arrival Time";
+  } else if (algorithm === "hrrn") {
+    algorithmName = "Highest Response Ratio Next";
+    mode = "Non-Preemptive";
+    criteria = "Response Ratio";
   }
 
   return (
