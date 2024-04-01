@@ -14,7 +14,7 @@ import { SRTF } from "@/lib/algorithm/SRTF";
 import { RR } from "@/lib/algorithm/RR";
 import { HRRN } from "@/lib/algorithm/HRRN";
 
-const TIME = 500;
+const TIME = 1000;
 
 const Main = ({ algorithm, tq }: { algorithm: string; tq?: number }) => {
   const { data } = useData();
