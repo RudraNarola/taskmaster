@@ -4,9 +4,17 @@ import Chart from "../../components/chart";
 import Header from "../../components/header";
 import Main from "../../components/main";
 import { Separator } from "../../components/ui/separator";
-import React from "react";
+import React, { Suspense } from "react";
 
-const Page = () => {
+function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MainPage />
+    </Suspense>
+  );
+}
+
+const MainPage = () => {
   const searchParams = useSearchParams();
   const algorithm = searchParams.get("algorithm");
   const tq = searchParams.get("tq");

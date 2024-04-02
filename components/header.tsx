@@ -1,9 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const Header = ({ algorithm }: { algorithm: string }) => {
   let algorithmName: string = "";
